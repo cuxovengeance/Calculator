@@ -1,0 +1,44 @@
+.calculatorContent {
+    background-color: white;
+    display: flex;
+    margin: auto;
+    width: 350px;
+    height: 450px;
+}
+
+.displayContainer {
+    background-color: black;
+    color: white;
+    font-size: 2rem;
+    margin-top: 10px;
+    height: 80px;
+    width: 100%;
+    text-align: right;
+    line-height: 4.5rem;
+    padding-right: 10px;
+    padding-left: 10px;
+}
+
+.keyBoardContainer {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-gap: 20px;
+    padding: 20px;
+}
+
+.squareButtons {
+    height: 50px;
+    font-size: 1rem;
+    line-height: initial;
+}
+
+.equal {
+    height: 100%;
+    font-size: 2rem;
+    grid-area: 2 / 4 / 6 / 5;
+}
+
+.operationButtons {
+    color: dodgerblue;
+    font-size: larger;
+}

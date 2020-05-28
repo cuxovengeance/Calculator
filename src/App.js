@@ -1,25 +1,18 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { Fragment, useState } from 'react';
+
+import Calculator from './components/calculator/Calculator';
 
 function App() {
+    /*State for the Initial value of the calculator*/
+  const [initialValue, setInitialValue] = useState(0);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+      <Fragment>
+          <Calculator
+              initialValue={initialValue}
+              setInitialValue={setInitialValue}
+              />
+      </Fragment>
   );
 }
 
