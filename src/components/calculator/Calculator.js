@@ -2,16 +2,40 @@ import React, {Fragment} from 'react';
 import './calculator.css';
 
 const Calculator = ({ initialValue, setInitialValue }) => {
-  /*4.Build buttons with the digits*/
-    const btnDigits = [7, 8, 9, 4, 5, 6, 1, 2, 3, 0, '.'].map(data => (
-        <button
-            key={data}
-            value={data}
-            className="squareButtons border btn btn-light"
-            onClick={e => {setInitialValue(initialValue + e.target.value)}}
-        > {data} </button>
-        )
-    );
+
+    /*4.Empty array for the digits*/
+    const calc = [];
+
+    /*set data in the input*/
+    let setData = e => {
+        e.preventDefault();
+        const data = parseFloat(initialValue);
+        setInitialValue(data + e.target.value);
+    }
+
+    /*5.Build buttons with the digits*/
+    [7, 8, 9, 4, 5, 6, 1, 2, 3, 0, '.'].forEach(data => {
+        calc.push(
+                <button
+                    key={data}
+                    value={data}
+                    className="squareButtons border btn btn-light"
+                    onClick={setData}
+                > {data} </button>
+        );
+    });
+
+    /*Variable para validar no ingresar más de un simbolo*/
+    const str = (initialValue.toString()).substr(-1);
+
+    /*Add Operation*/
+    const append = e => {
+        e.preventDefault();
+        if(str === '+' || str === '-' || str === '*' || str === '/') return null;
+
+        setInitialValue(initialValue + e.target.value)
+    }
+
 
   return(
       <Fragment>
@@ -24,19 +48,32 @@ const Calculator = ({ initialValue, setInitialValue }) => {
               {/*3.Keyboard container*/}
               <div className="keyBoardContainer">
 
-                  <button className="squareButtons btn btn-light operationButtons border"> + </button>
+                  {/*8. Add button*/}
+                  <button
+                      value="+"
+                      className="squareButtons btn btn-light operationButtons border"
+                      onClick={append}
+                  > + </button>
+
                   <button className="squareButtons btn btn-light operationButtons border"> - </button>
                   <button className="squareButtons btn btn-light operationButtons border"> x </button>
                   <button className="squareButtons btn btn-light operationButtons border"> / </button>
 
-                  {btnDigits}
+                  {/*6. Show Buttons of the digits*/}
+                  {calc}
 
-                  {/*4.Clear Button*/}
+                  {/*7.Clear Button*/}
                   <button
                       className="squareButtons btn btn-danger border"
-                      onClick={() => {setInitialValue(0)}}
+                      onClick={() => {setInitialValue("0")}}
                   > AC </button>
-                  <button className="equal border btn btn-primary"> = </button>
+
+                  {/*9.Equal Button*/}
+                  <button
+                      value="="
+                      className="equal border btn btn-primary"
+                  > = </button>
+
 
               </div>
           </div>
