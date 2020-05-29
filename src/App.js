@@ -5,7 +5,7 @@ import Calculator from './components/calculator/Calculator';
 function App() {
 
     const [ecuation , setEcuation] = useState({
-        input:'',
+        input:'0',
         initialValue:'',
         operation:'',
         secondValue:''

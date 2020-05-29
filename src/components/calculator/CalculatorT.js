@@ -6,19 +6,25 @@ const CalculatorT = ({ecuation,setEcuation}) => {
 
     const [operatorExist, setOperatorExist] = useState(false);
 
-    const {input, initialValue, operation, secondValue} = ecuation;
+    let {input, initialValue, operation, secondValue} = ecuation;
 
     const displayInput = e => {
         e.preventDefault();
-        setEcuation({
-            ...ecuation,
-            input: input + e.target.value
-        });
+        while(input.charAt(0) === '0'){
+            input = input.substr(1);
+        }
+            setEcuation({
+                ...ecuation,
+                input: input + e.target.value,
+            });
     }
 
     const displaySecondInput = e => {
         e.preventDefault();
         if(initialValue !== '') {
+            while(input.charAt(0) === '0'){
+                input = input.substr(1);
+            }
             setEcuation({
                 ...ecuation,
                 input: input + e.target.value,
@@ -29,6 +35,7 @@ const CalculatorT = ({ecuation,setEcuation}) => {
 
     const displayDecimal = e => {
         e.preventDefault();
+        if(input.includes('.')) return null;
         if(input.indexOf('.') === -1){
             setEcuation({
                 ...ecuation,
@@ -55,6 +62,30 @@ const CalculatorT = ({ecuation,setEcuation}) => {
             initialValue: input,
             input: '',
             operation: selectOperator });
+
+        /*If the user change his mind and change the operation*/
+        if(input === ''){
+            setEcuation({
+                ...ecuation,
+                input: '',
+                operation: selectOperator
+            })
+        }
+
+ /*       if(initialValue !== '' && secondValue !== ''){
+            const operation = ecuation.operation;
+            const second = ecuation.secondValue;
+            setOperatorExist(false);
+
+            if(operation === selectOperator && second !== ''){
+                setEcuation({
+                    input: String(eval(parseFloat(initialValue) + parseFloat(secondValue))),
+                    initialValue: input,
+                    secondValue: ''
+                });
+            }
+        }*/
+
     }
 
     const equal = () => {
@@ -89,7 +120,7 @@ const CalculatorT = ({ecuation,setEcuation}) => {
 
     const cleanAll = () => {
         setEcuation({
-            input:'',
+            input:'0',
             initialValue:'',
             operation:'',
             secondValue:'',
