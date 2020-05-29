@@ -13,7 +13,7 @@ const Calculator = () => {
 
     const setInitial = e => {
         e.preventDefault();
-        setInitialValue(parseFloat(initialValue + e.target.value));
+        setInitialValue(initialValue + e.target.value);
     }
 
     const addOperator = e => {
@@ -26,32 +26,31 @@ const Calculator = () => {
 
     const setSecond = e => {
         e.preventDefault();
-        setSecondlValue(parseFloat(secondValue + e.target.value));
+        setSecondlValue(secondValue + e.target.value);
     }
 
     const equal = e => {
-        if(initialValue === 0 || secondValue === 0 || operator === '') return null;
+        /*if(initialValue === '0' || secondValue === 0 || operator === '') return null;
         const ecuation = `${secondValue}  ${operator} ${initialValue} `;
         const result = eval(ecuation);
         console.log(result);
-        setInitialValue(0);
+        setInitialValue(result);
         setSecondlValue(0);
         setOperatorExist(false);
-        setOperator('');
+        setOperator('');*/
     }
 
     const clearAll = e => {
         setInitialValue(0);
         setSecondlValue(0);
         setOperator('');
-        setEc(0);
         setOperatorExist(false);
     }
 
     /*4.Empty array for the digits*/
     const calc = [];
     /*5.Build buttons with the digits*/
-    [7, 8, 9, 4, 5, 6, 1, 2, 3, 0].map(data => {
+    ['7', '8', '9', '4', '5', '6', '1', '2', '3'].map(data => {
         calc.push(
                 <button
                     key={data}
@@ -63,12 +62,6 @@ const Calculator = () => {
         );
     });
 
-/*    const display = () => {
-        if(secondValue === 0 && operator ===''){
-
-        }
-    }*/
-
 
   return(
       <Fragment>
@@ -76,7 +69,7 @@ const Calculator = () => {
           <div className='card calculatorContent'>
 
               {/*2.Display container - Initialize with initialValue prop*/}
-              <div className='displayContainer font-weight-normal' id='display'>{}</div>
+              <div className='displayContainer font-weight-normal' id='display'> </div>
 
               {/*3.Keyboard container*/}
               <div className='keyBoardContainer'>
@@ -102,23 +95,30 @@ const Calculator = () => {
                       name='*'
                       className='squareButtons btn btn-light operationButtons border'
                       onClick={addOperator}
-                  > x </button>
+                  > &times; </button>
 
                   <button
                       value='/'
                       name='/'
                       className='squareButtons btn btn-light operationButtons border'
                       onClick={addOperator}
-                  > / </button>
+                  > &divide; </button>
 
                   {/*6. Show Buttons of the digits*/}
                   {calc}
 
-        {/*          Decimal*/}
+                  {/*Zero*/}
+                  <button
+                      value='0'
+                      className="squareButtons border btn btn-light"
+                      onClick={(operatorExist)? setInitial : setSecond }
+                  > 0 </button>
+
+                  {/*Decimal*/}
                   <button
                       value='.'
                       className="squareButtons border btn btn-light"
-                      onClick={(operatorExist)? setInitial : setSecond }
+                      onClick={setInitial}
                   > . </button>
 
                  {/* 7.Clear Button*/}

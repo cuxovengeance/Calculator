@@ -1,13 +1,23 @@
-import React, {Fragment} from 'react';
-
+import React, {Fragment, useState} from 'react';
+import CalculatorT from "./components/calculator/CalculatorT";
 import Calculator from './components/calculator/Calculator';
 
 function App() {
 
+    const [ecuation , setEcuation] = useState({
+        input:'',
+        initialValue:'',
+        operation:'',
+        secondValue:''
+    })
 
   return (
       <Fragment>
-          <Calculator/>
+          {/*<Calculator/>*/}
+          <CalculatorT
+              ecuation={ecuation}
+              setEcuation={setEcuation}
+          />
       </Fragment>
   );
 }
