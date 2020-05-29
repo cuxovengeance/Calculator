@@ -129,6 +129,20 @@ const CalculatorT = ({ecuation,setEcuation}) => {
         setOperatorExist(false);
     }
 
+    /*4.Empty array for the digits*/
+    const calc = [];
+    /*5.Build buttons with the digits*/
+    ['7', '8', '9', '4', '5', '6', '1', '2', '3','0'].map(data => {
+        calc.push(
+            <button
+                value={data}
+                className="squareButtons border btn btn-light"
+                onClick={(!operatorExist) ? displayInput : displaySecondInput }>
+                {data}
+            </button>
+        );
+    });
+
     return(
         <Fragment>
             {/*1.Calculator container*/}
@@ -140,25 +154,16 @@ const CalculatorT = ({ecuation,setEcuation}) => {
                 {/*3.Keyboard container*/}
                 <div className='keyBoardContainer'>
 
-                    {/*8. Add button*/}
+                    {/*8. Operation Buttons*/}
                     <button value='+' name='+' className='squareButtons btn btn-light operationButtons border' onClick={addOperation}> + </button>
                     <button value='-' name='-' className='squareButtons btn btn-light operationButtons border' onClick={addOperation}> - </button>
                     <button value='*' name='*' className='squareButtons btn btn-light operationButtons border' onClick={addOperation}> &times; </button>
                     <button value='/' name='/' className='squareButtons btn btn-light operationButtons border' onClick={addOperation}> &divide; </button>
 
                     {/*6. Show Buttons of the digits*/}
-                    <button value='7' className="squareButtons border btn btn-light" onClick={(!operatorExist) ? displayInput : displaySecondInput }> 7 </button>
-                    <button value='8' className="squareButtons border btn btn-light" onClick={(!operatorExist) ? displayInput : displaySecondInput }> 8 </button>
-                    <button value='9' className="squareButtons border btn btn-light" onClick={(!operatorExist) ? displayInput : displaySecondInput }> 9 </button>
-                    <button value='4' className="squareButtons border btn btn-light" onClick={(!operatorExist) ? displayInput : displaySecondInput }> 4 </button>
-                    <button value='5' className="squareButtons border btn btn-light" onClick={(!operatorExist) ? displayInput : displaySecondInput }> 5 </button>
-                    <button value='6' className="squareButtons border btn btn-light" onClick={(!operatorExist) ? displayInput : displaySecondInput }> 6 </button>
-                    <button value='3' className="squareButtons border btn btn-light" onClick={(!operatorExist) ? displayInput : displaySecondInput }> 3 </button>
-                    <button value='2' className="squareButtons border btn btn-light" onClick={(!operatorExist) ? displayInput : displaySecondInput }> 2 </button>
-                    <button value='1' className="squareButtons border btn btn-light" onClick={(!operatorExist) ? displayInput : displaySecondInput }> 1 </button>
-                    <button value='0' className="squareButtons border btn btn-light" onClick={(!operatorExist) ? displayInput : displaySecondInput }> 0 </button>
+                    {calc}
 
-                    {/*Decimal*/}
+                    {/*Decimal Button*/}
                     <button value='.' className="squareButtons border btn btn-light" onClick={displayDecimal}> . </button>
 
                     {/* 7.Clear Button*/}
