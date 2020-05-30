@@ -1,143 +1,208 @@
-import React, {Fragment, useState} from 'react';
+import React, { Fragment, useState } from 'react';
 import './calculator.css';
-import {buildEcuation} from '../../helper';
+import {
+  addSecondValue,
+  buildEcuation,
+  evaluate,
+  evaluateWithOperationButton,
+} from '../../helper';
 
-const Calculator = () => {
+const Calculator = ({ equation, setEquation }) => {
+  /*State for knowing if the user selected a operator*/
+  const [operatorExist, setOperatorExist] = useState(false);
 
-    const [initialValue, setInitialValue] = useState(0);
-    const [secondValue, setSecondlValue] = useState(0);
-    const [operator, setOperator] = useState('');
-    const [operatorExist, setOperatorExist] = useState(false);
+  let { input, initialValue, operation, secondValue } = equation;
 
-    const str = (initialValue.toString().substr(-1));
+  /*Function for add a value to initialValue and show it in the display*/
+  const displayInput = (e) => {
+    e.preventDefault();
+    while (input.charAt(0) === '0') {
+      input = input.substr(1);
+    }
+    setEquation({
+      ...equation,
+      input: input + e.target.value,
+    });
+  };
 
-    const setInitial = e => {
-        e.preventDefault();
-        setInitialValue(initialValue + e.target.value);
+  /*Function for add a second value*/
+  const displaySecondInput = (e) => {
+    e.preventDefault();
+    if (initialValue !== '') {
+      while (input.charAt(0) === '0') {
+        input = input.substr(1);
+      }
+      addSecondValue(e, setEquation, equation, input);
+    }
+  };
+
+  /*Function for add a decimal*/
+  const displayDecimal = (e) => {
+    e.preventDefault();
+    if (input.includes('.')) return null;
+    if (input.indexOf('.') === -1) {
+      addSecondValue(e, setEquation, equation, input);
     }
 
-    const addOperator = e => {
-        e.preventDefault();
-        if(str === '+' || str === '-' || str === '*' || str === '/') return null;
-        const selectedOperator = buildEcuation(e.target.value);
-        setOperator(selectedOperator);
-        setOperatorExist(true);
+    if (input !== '') {
+      addSecondValue(e, setEquation, equation, input);
     }
+  };
 
-    const setSecond = e => {
-        e.preventDefault();
-        setSecondlValue(secondValue + e.target.value);
-    }
-
-    const equal = e => {
-        /*if(initialValue === '0' || secondValue === 0 || operator === '') return null;
-        const ecuation = `${secondValue}  ${operator} ${initialValue} `;
-        const result = eval(ecuation);
-        console.log(result);
-        setInitialValue(result);
-        setSecondlValue(0);
-        setOperatorExist(false);
-        setOperator('');*/
-    }
-
-    const clearAll = e => {
-        setInitialValue(0);
-        setSecondlValue(0);
-        setOperator('');
-        setOperatorExist(false);
-    }
-
-    /*4.Empty array for the digits*/
-    const calc = [];
-    /*5.Build buttons with the digits*/
-    ['7', '8', '9', '4', '5', '6', '1', '2', '3'].map(data => {
-        calc.push(
-                <button
-                    key={data}
-                    value={data}
-                    name='input'
-                    className="squareButtons border btn btn-light"
-                    onClick={(operatorExist)? setInitial : setSecond }
-                > {data} </button>
-        );
+  /*Function for add a operation*/
+  const addOperation = (e) => {
+    e.preventDefault();
+    setOperatorExist(true);
+    const selectOperator = buildEcuation(e.target.value);
+    setEquation({
+      ...equation,
+      initialValue: input,
+      input: '',
+      operation: selectOperator,
     });
 
+    /*If the user change his mind and change the operation*/
+    if (input === '') {
+      setEquation({
+        ...equation,
+        input: '',
+        operation: selectOperator,
+      });
+    }
 
-  return(
-      <Fragment>
-          {/*1.Calculator container*/}
-          <div className='card calculatorContent'>
+    /*If the user use some of the operation button for get the result*/
+    /* evaluateWithOperationButton(operation, initialValue, secondValue, input, setOperatorExist, setEquation);*/
+  };
 
-              {/*2.Display container - Initialize with initialValue prop*/}
-              <div className='displayContainer font-weight-normal' id='display'> </div>
+  /*Function for evaluate the equation and get a result*/
+  const equal = () => {
+    if (
+      secondValue === '' ||
+      input === '' ||
+      initialValue === '' ||
+      operation === ''
+    )
+      return null;
+    setOperatorExist(false);
+    evaluate(
+      operation,
+      setEquation,
+      initialValue,
+      secondValue,
+      input,
+      equation
+    );
+  };
 
-              {/*3.Keyboard container*/}
-              <div className='keyBoardContainer'>
+  const cleanAll = () => {
+    setOperatorExist(false);
+    setEquation({
+      input: '0',
+      initialValue: '',
+      operation: '',
+      secondValue: '',
+    });
+  };
 
-                  {/*8. Add button*/}
-                  <button
-                      value='+'
-                      name='+'
-                      className='squareButtons btn btn-light operationButtons border'
-                      onClick={addOperator}
-                  > + </button>
+  /*4.Empty array for the digits*/
+  const calc = [];
+  /*5.Build buttons with the digits*/
+  ['7', '8', '9', '4', '5', '6', '1', '2', '3', '0'].map((data) => {
+    calc.push(
+      <button
+        key={data}
+        value={data}
+        className="squareButtons border btn btn-light"
+        onClick={!operatorExist ? displayInput : displaySecondInput}
+      >
+        {data}
+      </button>
+    );
+  });
 
-                  <button
-                      value='-'
-                      name='-'
-                      className='squareButtons btn btn-light operationButtons border'
-                      onClick={addOperator}
-                  > - </button>
+  return (
+    <Fragment>
+      {/*1.Calculator container*/}
+      <div className="card calculatorContent">
+        {/*2.Display container - Initialize with initialValue prop*/}
+        <div className="displayContainer font-weight-normal" id="display">
+          {input}
+        </div>
 
+        {/*3.Keyboard container*/}
+        <div className="keyBoardContainer">
+          {/*8. Operation Buttons*/}
+          <button
+            value="+"
+            name="+"
+            className="squareButtons btn btn-light operationButtons border"
+            onClick={addOperation}
+          >
+            {' '}
+            +{' '}
+          </button>
+          <button
+            value="-"
+            name="-"
+            className="squareButtons btn btn-light operationButtons border"
+            onClick={addOperation}
+          >
+            {' '}
+            -{' '}
+          </button>
+          <button
+            value="*"
+            name="*"
+            className="squareButtons btn btn-light operationButtons border"
+            onClick={addOperation}
+          >
+            {' '}
+            &times;{' '}
+          </button>
+          <button
+            value="/"
+            name="/"
+            className="squareButtons btn btn-light operationButtons border"
+            onClick={addOperation}
+          >
+            {' '}
+            &divide;{' '}
+          </button>
 
-                  <button
-                      value='*'
-                      name='*'
-                      className='squareButtons btn btn-light operationButtons border'
-                      onClick={addOperator}
-                  > &times; </button>
+          {/*6. Show Buttons of the digits*/}
+          {calc}
 
-                  <button
-                      value='/'
-                      name='/'
-                      className='squareButtons btn btn-light operationButtons border'
-                      onClick={addOperator}
-                  > &divide; </button>
+          {/*7. Decimal Button*/}
+          <button
+            value="."
+            className="squareButtons border btn btn-light"
+            onClick={displayDecimal}
+          >
+            {' '}
+            .{' '}
+          </button>
 
-                  {/*6. Show Buttons of the digits*/}
-                  {calc}
+          {/* 8.Clear Button*/}
+          <button
+            className="squareButtons btn btn-danger border"
+            onClick={cleanAll}
+          >
+            {' '}
+            AC{' '}
+          </button>
 
-                  {/*Zero*/}
-                  <button
-                      value='0'
-                      className="squareButtons border btn btn-light"
-                      onClick={(operatorExist)? setInitial : setSecond }
-                  > 0 </button>
-
-                  {/*Decimal*/}
-                  <button
-                      value='.'
-                      className="squareButtons border btn btn-light"
-                      onClick={setInitial}
-                  > . </button>
-
-                 {/* 7.Clear Button*/}
-                  <button
-                      className="squareButtons btn btn-danger border"
-                      onClick={clearAll}
-                  > AC </button>
-
-                  {/*9.Equal Button*/}
-                  <button
-                      value="="
-                      className="equal border btn btn-primary"
-                      onClick={equal}
-                  > = </button>
-
-
-              </div>
-          </div>
-      </Fragment>
+          {/*9.Equal Button*/}
+          <button
+            value="="
+            className="equal border btn btn-primary"
+            onClick={equal}
+          >
+            {' '}
+            ={' '}
+          </button>
+        </div>
+      </div>
+    </Fragment>
   );
 };
 
