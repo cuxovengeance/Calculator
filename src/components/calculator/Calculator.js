@@ -5,7 +5,7 @@ import {
   buildEcuation,
   evaluate,
   evaluateWithOperationButton,
-} from '../../helper';
+} from '../../helpers/helper';
 
 const Calculator = ({ equation, setEquation }) => {
   /*State for knowing if the user selected a operator*/

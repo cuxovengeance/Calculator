@@ -65,7 +65,8 @@ export function evaluate(
   }
 
   /*If the user use one of the operation button for get the result*/
-/*  if (operation === '+') {
+  /****IMPORTANT: This part is not 100% correctly functional, missing some validations *****/
+  /*  if (operation === '+') {
     setEquation({
       ...equation,
       secondValue: input,
