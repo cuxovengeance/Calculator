@@ -133,6 +133,7 @@ const Calculator = ({ equation, setEquation }) => {
         <div className="keyBoardContainer">
           {/*8. Operation Buttons*/}
           <button
+            id="append"
             value="+"
             name="+"
             className="squareButtons btn btn-light operationButtons border"
@@ -142,6 +143,7 @@ const Calculator = ({ equation, setEquation }) => {
             +{' '}
           </button>
           <button
+            id="minus"
             value="-"
             name="-"
             className="squareButtons btn btn-light operationButtons border"
@@ -151,6 +153,7 @@ const Calculator = ({ equation, setEquation }) => {
             -{' '}
           </button>
           <button
+            id="multiplication"
             value="*"
             name="*"
             className="squareButtons btn btn-light operationButtons border"
@@ -160,6 +163,7 @@ const Calculator = ({ equation, setEquation }) => {
             &times;{' '}
           </button>
           <button
+            id="division"
             value="/"
             name="/"
             className="squareButtons btn btn-light operationButtons border"
@@ -174,6 +178,7 @@ const Calculator = ({ equation, setEquation }) => {
 
           {/*7. Decimal Button*/}
           <button
+            id="dot"
             value="."
             className="squareButtons border btn btn-light"
             onClick={displayDecimal}
@@ -184,6 +189,7 @@ const Calculator = ({ equation, setEquation }) => {
 
           {/* 8.Clear Button*/}
           <button
+            id="ac"
             className="squareButtons btn btn-danger border"
             onClick={cleanAll}
           >
@@ -193,6 +199,7 @@ const Calculator = ({ equation, setEquation }) => {
 
           {/*9.Equal Button*/}
           <button
+            id="equal"
             value="="
             className="equal border btn btn-primary"
             onClick={equal}
