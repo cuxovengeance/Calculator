@@ -1,4 +1,5 @@
 import React, { Fragment, useState } from 'react';
+import PropTypes from 'prop-types';
 import './calculator.css';
 import { addSecondValue, buildEcuation, evaluate } from '../../helpers/helper';
 
@@ -64,7 +65,7 @@ const Calculator = ({ equation, setEquation }) => {
     }
 
     /*If the user use some of the operation button for get the result*/
-    /* evaluateWithOperationButton(operation, initialValue, secondValue, input, setOperatorExist, setEquation);*/
+    /*evaluateWithOperationButton(operation, initialValue, secondValue, input, setOperatorExist, setEquation);*/
   };
 
   /*Function for evaluate the equation and get a result*/
@@ -204,6 +205,11 @@ const Calculator = ({ equation, setEquation }) => {
       </div>
     </Fragment>
   );
+};
+
+Calculator.propTypes = {
+  equation: PropTypes.object.isRequired,
+  setEquation: PropTypes.func.isRequired,
 };
 
 export default Calculator;

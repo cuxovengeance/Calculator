@@ -65,8 +65,8 @@ export function evaluate(
   }
 
   /*If the user use one of the operation button for get the result*/
-  /****IMPORTANT: This part is not 100% correctly functional, missing some validations *****/
-  /*  if (operation === '+') {
+  /****IMPORTANT: This part is not 100% correctly functional, because needs a double click in the button *****/
+  /*    if (operation === '+') {
     setEquation({
       ...equation,
       secondValue: input,
@@ -97,9 +97,9 @@ export function evaluate(
 }
 
 /*===IMPORTANT===
- * this function works, but present a little problem with the function evaluate.
- * The problem is when i use this function and then the other (evaluate) the result
- * is incorrect, result a NaN or a concatenation of the values.*/
+ * this function works, but present a little problem with the function of the button,
+ * because needs a second click in the same operation button for add the operation
+ * and then get the result */
 /*export function evaluateWithOperationButton(
   operation,
   initialValue,
