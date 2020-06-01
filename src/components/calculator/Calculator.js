@@ -1,7 +1,7 @@
 import React, { Fragment, useState } from 'react';
 import PropTypes from 'prop-types';
 import './calculator.css';
-import { addSecondValue, buildEcuation, evaluate } from '../../helpers/helper';
+import { addSecondValue, buildEquation, evaluate } from '../../helpers/helper';
 
 const Calculator = ({ equation, setEquation }) => {
   /*State for knowing if the user selected a operator*/
@@ -47,7 +47,7 @@ const Calculator = ({ equation, setEquation }) => {
   const addOperation = (e) => {
     e.preventDefault();
     setOperatorExist(true);
-    const selectOperator = buildEcuation(e.target.value);
+    const selectOperator = buildEquation(e.target.value);
     setEquation({
       ...equation,
       initialValue: input,

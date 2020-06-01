@@ -5,7 +5,7 @@ export function addSecondValue(e, setEquation, equation, input) {
     secondValue: input + e.target.value,
   });
 }
-export function buildEcuation(op) {
+export function buildEquation(op) {
   let sign = '';
 
   switch (op) {
