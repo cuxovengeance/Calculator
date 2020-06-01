@@ -42,25 +42,25 @@ export function evaluate(
 ) {
   if (operation === '+' && secondValue !== '') {
     setEquation({
-      input: String(eval(parseFloat(initialValue) + parseFloat(secondValue))),
+      input: String(parseFloat(initialValue) + parseFloat(secondValue)),
     });
   }
 
   if (operation === '-' && secondValue !== '') {
     setEquation({
-      input: String(eval(parseFloat(initialValue) - parseFloat(secondValue))),
+      input: String(parseFloat(initialValue) - parseFloat(secondValue)),
     });
   }
 
   if (operation === '*' && secondValue !== '') {
     setEquation({
-      input: String(eval(parseFloat(initialValue) * parseFloat(secondValue))),
+      input: String(parseFloat(initialValue) * parseFloat(secondValue)),
     });
   }
 
   if (operation === '/' && secondValue !== '') {
     setEquation({
-      input: String(eval(parseFloat(initialValue) / parseFloat(secondValue))),
+      input: String(parseFloat(initialValue) / parseFloat(secondValue)),
     });
   }
 
@@ -70,33 +70,37 @@ export function evaluate(
     setEquation({
       ...equation,
       secondValue: input,
-      input: String(eval(parseFloat(initialValue) + parseFloat(secondValue))),
+      input: String((parseFloat(initialValue) + parseFloat(secondValue))),
     });
   }
   if (operation === '-') {
     setEquation({
       ...equation,
       secondValue: input,
-      input: String(eval(parseFloat(initialValue) - parseFloat(secondValue))),
+      input: String((parseFloat(initialValue) - parseFloat(secondValue))),
     });
   }
   if (operation === '*') {
     setEquation({
       ...equation,
       secondValue: input,
-      input: String(eval(parseFloat(initialValue) * parseFloat(secondValue))),
+      input: String((parseFloat(initialValue) * parseFloat(secondValue))),
     });
   }
   if (operation === '/') {
     setEquation({
       ...equation,
       secondValue: input,
-      input: String(eval(parseFloat(initialValue) / parseFloat(secondValue))),
+      input: String((parseFloat(initialValue) / parseFloat(secondValue))),
     });
   }*/
 }
 
-export function evaluateWithOperationButton(
+/*===IMPORTANT===
+ * this function works, but present a little problem with the function evaluate.
+ * The problem is when i use this function and then the other (evaluate) the result
+ * is incorrect, result a NaN or a concatenation of the values.*/
+/*export function evaluateWithOperationButton(
   operation,
   initialValue,
   secondValue,
@@ -109,7 +113,7 @@ export function evaluateWithOperationButton(
 
     if (operation === '+') {
       setEquation({
-        input: String(eval(parseFloat(initialValue) + parseFloat(secondValue))),
+        input: String((parseFloat(initialValue) + parseFloat(secondValue))),
         initialValue: input,
         secondValue: '',
         operation: '+',
@@ -117,7 +121,7 @@ export function evaluateWithOperationButton(
     }
     if (operation === '-') {
       setEquation({
-        input: String(eval(parseFloat(initialValue) - parseFloat(secondValue))),
+        input: String((parseFloat(initialValue) - parseFloat(secondValue))),
         initialValue: input,
         secondValue: '',
         operation: '-',
@@ -125,7 +129,7 @@ export function evaluateWithOperationButton(
     }
     if (operation === '*') {
       setEquation({
-        input: String(eval(parseFloat(initialValue) * parseFloat(secondValue))),
+        input: String((parseFloat(initialValue) * parseFloat(secondValue))),
         initialValue: input,
         secondValue: '',
         operation: '*',
@@ -133,11 +137,11 @@ export function evaluateWithOperationButton(
     }
     if (operation === '/') {
       setEquation({
-        input: String(eval(parseFloat(initialValue) / parseFloat(secondValue))),
+        input: String((parseFloat(initialValue) / parseFloat(secondValue))),
         initialValue: input,
         secondValue: '',
         operation: '/',
       });
     }
   }
-}
+}*/

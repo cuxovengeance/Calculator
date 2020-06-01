@@ -1,16 +1,12 @@
 import React, { Fragment, useState } from 'react';
 import './calculator.css';
-import {
-  addSecondValue,
-  buildEcuation,
-  evaluate,
-  evaluateWithOperationButton,
-} from '../../helpers/helper';
+import { addSecondValue, buildEcuation, evaluate } from '../../helpers/helper';
 
 const Calculator = ({ equation, setEquation }) => {
   /*State for knowing if the user selected a operator*/
   const [operatorExist, setOperatorExist] = useState(false);
 
+  /*Desctructuring of equation hook*/
   let { input, initialValue, operation, secondValue } = equation;
 
   /*Function for add a value to initialValue and show it in the display*/
@@ -40,9 +36,6 @@ const Calculator = ({ equation, setEquation }) => {
   const displayDecimal = (e) => {
     e.preventDefault();
     if (input.includes('.')) return null;
-    if (input.indexOf('.') === -1) {
-      addSecondValue(e, setEquation, equation, input);
-    }
 
     if (input !== '') {
       addSecondValue(e, setEquation, equation, input);
@@ -105,10 +98,10 @@ const Calculator = ({ equation, setEquation }) => {
   };
 
   /*4.Empty array for the digits*/
-  const calc = [];
+  const numbers = [];
   /*5.Build buttons with the digits*/
-  ['7', '8', '9', '4', '5', '6', '1', '2', '3', '0'].map((data) => {
-    calc.push(
+  ['7', '8', '9', '4', '5', '6', '1', '2', '3', '0'].forEach((data) => {
+    numbers.push(
       <button
         key={data}
         value={data}
@@ -174,7 +167,7 @@ const Calculator = ({ equation, setEquation }) => {
           </button>
 
           {/*6. Show Buttons of the digits*/}
-          {calc}
+          {numbers}
 
           {/*7. Decimal Button*/}
           <button
